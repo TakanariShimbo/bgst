@@ -38,7 +38,7 @@ os.makedirs(mask_folder_path, exist_ok=True)
 cnt = 0
 while True:
     # get frame
-    ret, frame = cap.read()
+    ret, img_bgr = cap.read()
     if not ret:
         break
     if cnt > 400:
@@ -47,23 +47,22 @@ while True:
     # original movie is 120fps -> convert 30fps
     if cnt%4 == 0:
         # get mask
-        mask = bgst.apply(frame)
+        img_mask_gray = bgst.apply(img_bgr)
 
         # opening
         # opening = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel, iterations=3)
-        mask = customized_opening(img=mask, scale=2, iteration=5)
-        mask[mask != 0] = 255
-
-        # mix frame and mask
-        frame[mask == 0] = 0
+        img_mask_gray = customized_opening(img=img_mask_gray, scale=2, iteration=5)
+        img_mask_gray[img_mask_gray != 0] = 255
 
         # viz
-        cv2.imshow("Frame (Only Forground)", frame)
+        img_viz_bgr = img_bgr.copy()
+        img_viz_bgr[img_mask_gray == 0] = 0
+        cv2.imshow("Frame (Only Forground)", img_viz_bgr)
         cv2.waitKey(1)
 
         # save
-        cv2.imwrite(image_folder_path + "frame{}.jpg".format(cnt), frame)
-        cv2.imwrite(mask_folder_path + "mask{}.jpg".format(cnt), mask)
+        cv2.imwrite(image_folder_path + "image{}.jpg".format(cnt), img_bgr)
+        cv2.imwrite(mask_folder_path + "mask{}.jpg".format(cnt), img_mask_gray)
     cnt += 1
 
 cap.release()
