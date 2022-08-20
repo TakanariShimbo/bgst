@@ -5,12 +5,13 @@ import numpy as np
 
 # setting
 filename = 'test_1'
+max_frame = 4000
 
 # define opening
 # kernel = np.ones((5,5),np.uint8)
 def customized_opening(img, scale, iteration):
-    img = cv2.medianBlur(img, 5)
     for i in range(iteration):
+        img = cv2.medianBlur(img, 5)
         img = cv2.resize(img, dsize=None, fx=1/scale, fy=1/scale)
         img = cv2.resize(img, dsize=None, fx=scale, fy=scale)
     return img
@@ -41,7 +42,7 @@ while True:
     ret, img_bgr = cap.read()
     if not ret:
         break
-    if cnt > 400:
+    if cnt > max_frame:
         break
 
     # original movie is 120fps -> convert 30fps
@@ -51,18 +52,18 @@ while True:
 
         # opening
         # opening = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel, iterations=3)
-        img_mask_gray = customized_opening(img=img_mask_gray, scale=2, iteration=5)
+        img_mask_gray = customized_opening(img=img_mask_gray, scale=2, iteration=10)
         img_mask_gray[img_mask_gray != 0] = 255
 
         # viz
         img_viz_bgr = img_bgr.copy()
         img_viz_bgr[img_mask_gray == 0] = 0
-        cv2.imshow("Frame (Only Forground)", img_viz_bgr)
+        cv2.imshow("Frame (Only Forground)", img_mask_gray)
         cv2.waitKey(1)
 
         # save
-        cv2.imwrite(image_folder_path + "image{}.jpg".format(cnt), img_bgr)
-        cv2.imwrite(mask_folder_path + "mask{}.jpg".format(cnt), img_mask_gray)
+        cv2.imwrite(image_folder_path + "image{}.bmp".format(cnt), img_bgr)
+        cv2.imwrite(mask_folder_path + "mask{}.bmp".format(cnt), img_mask_gray)
     cnt += 1
 
 cap.release()
