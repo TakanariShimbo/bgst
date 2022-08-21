@@ -9,11 +9,11 @@ total_frame = 1001      # int
 down_fps_rate = 4       # int
 
 # read movie
-video_path = "../datas/original_movies/{}.mp4".format(filename)
+video_path = f"../datas/original_movies/{filename}.mp4"
 cap = cv2.VideoCapture(video_path)
 
 # make directory for save
-image_folder_path = "../datas/original_images/{}/".format(filename)
+image_folder_path = f"../datas/original_images/{filename}/"
 os.makedirs(image_folder_path, exist_ok=True)
 
 # main loop
@@ -29,7 +29,7 @@ with tqdm.tqdm(total=total_frame) as pbar:
 
         # save
         if cnt%down_fps_rate == 0:
-            cv2.imwrite(image_folder_path + "frame{}.bmp".format(cnt//down_fps_rate), img_bgr)
+            cv2.imwrite(image_folder_path + f"frame{cnt//down_fps_rate}.bmp", img_bgr)
             pbar.update(1)
         cnt += 1
 
