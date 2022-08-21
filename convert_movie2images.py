@@ -12,13 +12,12 @@ down_fps_rate = 4       # int
 video_path = f"../datas/original_movies/{filename}.mp4"
 cap = cv2.VideoCapture(video_path)
 
-# make directory for save
+# save directory
 image_folder_path = f"../datas/original_images/{filename}/"
 os.makedirs(image_folder_path, exist_ok=True)
 
-# main loop
-cnt = 0
 with tqdm.tqdm(total=total_frame) as pbar:
+    cnt = 0
     while True:
         # get frame
         ret, img_bgr = cap.read()

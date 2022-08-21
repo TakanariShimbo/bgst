@@ -22,15 +22,16 @@ bgst = cv2.createBackgroundSubtractorMOG2(
     history=15, varThreshold=50, detectShadows=False
 )
 
-# make directory for save
-mask_folder_path = f"../datas/mask_images/{filename}/"
-os.makedirs(mask_folder_path, exist_ok=True)
+# save directory
+save_folder_path = f"../datas/mask_images/{filename}/"
+os.makedirs(save_folder_path, exist_ok=True)
 
-# read images
+# read directory
 image_folder_path = f"../datas/original_images/{filename}/"
 total_frame = len(glob.glob(image_folder_path+'*.bmp'))
 
 for i in tqdm.tqdm(range(total_frame)):
+    # read images
     image_path = image_folder_path + f"frame{i}.bmp"
     img_bgr = cv2.imread(image_path)
 
@@ -48,4 +49,4 @@ for i in tqdm.tqdm(range(total_frame)):
     cv2.waitKey(1)
 
     # save
-    cv2.imwrite(mask_folder_path + f"frame{i}.bmp", img_mask_gray)
+    cv2.imwrite(save_folder_path + f"frame{i}.bmp", img_mask_gray)
