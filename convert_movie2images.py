@@ -26,6 +26,9 @@ def main():
 
             # save
             if cnt%opt.down_fps_rate == 0:
+                # resize
+                img_bgr = cv2.resize(img_bgr, dsize=None, fx=1/opt.down_resolution_rate, fy=1/opt.down_resolution_rate)
+
                 # save
                 save_path = image_folder_path + f"frame{cnt//opt.down_fps_rate}.bmp"
                 cv2.imwrite(save_path, img_bgr)
@@ -47,7 +50,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--filename', type=str)
     parser.add_argument('--total_frame', type=int)
-    parser.add_argument('--down_fps_rate', type=int)
+    parser.add_argument('--down_fps_rate', type=int, default=1.0)
+    parser.add_argument('--down_resolution_rate', type=float, default=1.0)
     parser.add_argument('--show_viz', type=bool)
     opt = parser.parse_args()
     print(opt)
@@ -56,4 +60,4 @@ if __name__ == '__main__':
     main()
 
     # ex)
-    # python convert_movie2images.py --filename "test_1" --total_frame 1001 --down_fps_rate 4 --show_viz False
+    # python convert_movie2images.py --filename "test_1" --total_frame 1001 --down_fps_rate 4 --down_resolution_rate 3

@@ -10,7 +10,7 @@ import tqdm
 # kernel = np.ones((5,5),np.uint8)
 def customized_opening(img, scale, iteration):
     for i in range(iteration):
-        img = cv2.medianBlur(img, 5)
+        img = cv2.medianBlur(img, 3)
         img = cv2.resize(img, dsize=None, fx=1/scale, fy=1/scale)
         img = cv2.resize(img, dsize=None, fx=scale, fy=scale)
     return img
@@ -67,4 +67,4 @@ if __name__ == '__main__':
     main()
 
     # ex)
-    # python make_mask.py --filename "test_1" --show_viz False
+    # python make_mask.py --filename "test_1"
