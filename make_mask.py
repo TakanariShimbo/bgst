@@ -46,17 +46,19 @@ def main():
         # save
         cv2.imwrite(save_folder_path + f"frame{i}.bmp", img_mask_gray)
 
-        # # viz
-        # img_viz_bgr = img_bgr.copy()
-        # img_viz_bgr[img_mask_gray == 0] = 0
-        # cv2.imshow("Masked Frame", img_viz_bgr)
-        # cv2.waitKey(1)
+        # viz
+        if opt.show_viz:
+            img_viz_bgr = img_bgr.copy()
+            img_viz_bgr[img_mask_gray == 0] = 0
+            cv2.imshow("Masked Frame", img_viz_bgr)
+            cv2.waitKey(1)
 
 
 if __name__ == '__main__':
     # get args
     parser = argparse.ArgumentParser()
     parser.add_argument('--filename', type=str)
+    parser.add_argument('--show_viz', type=bool)
     opt = parser.parse_args()
     print(opt)
 
@@ -64,4 +66,4 @@ if __name__ == '__main__':
     main()
 
     # ex)
-    # python make_mask.py --filename "test_1"
+    # python make_mask.py --filename "test_1" --show_viz False

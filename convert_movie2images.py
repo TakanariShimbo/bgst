@@ -29,9 +29,10 @@ def main():
                 # save
                 cv2.imwrite(image_folder_path + f"frame{cnt//opt.down_fps_rate}.bmp", img_bgr)
 
-                # # viz
-                # cv2.imshow("Original Frame", img_bgr)
-                # cv2.waitKey(1)
+                # viz
+                if opt.show_viz:
+                    cv2.imshow("Original Frame", img_bgr)
+                    cv2.waitKey(1)
 
                 pbar.update(1)
             cnt += 1
@@ -46,6 +47,7 @@ if __name__ == '__main__':
     parser.add_argument('--filename', type=str)
     parser.add_argument('--total_frame', type=int)
     parser.add_argument('--down_fps_rate', type=int)
+    parser.add_argument('--show_viz', type=bool)
     opt = parser.parse_args()
     print(opt)
 
@@ -53,4 +55,4 @@ if __name__ == '__main__':
     main()
 
     # ex)
-    # python convert_movie2images.py --filename "test_1" --total_frame 1001 --down_fps_rate 4
+    # python convert_movie2images.py --filename "test_1" --total_frame 1001 --down_fps_rate 4 --show_viz False
