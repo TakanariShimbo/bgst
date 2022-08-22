@@ -27,7 +27,8 @@ def main():
             # save
             if cnt%opt.down_fps_rate == 0:
                 # save
-                cv2.imwrite(image_folder_path + f"frame{cnt//opt.down_fps_rate}.bmp", img_bgr)
+                save_path = image_folder_path + f"frame{cnt//opt.down_fps_rate}.bmp"
+                cv2.imwrite(save_path, img_bgr)
 
                 # viz
                 if opt.show_viz:

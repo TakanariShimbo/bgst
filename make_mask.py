@@ -31,9 +31,9 @@ def main():
     image_folder_path = f"../datas/original_images/{opt.filename}/"
     total_frame = len(glob.glob(image_folder_path+'*.bmp'))
 
-    for i in tqdm.tqdm(range(total_frame)):
+    for i_frame in tqdm.tqdm(range(total_frame)):
         # read images
-        image_path = image_folder_path + f"frame{i}.bmp"
+        image_path = image_folder_path + f"frame{i_frame}.bmp"
         img_bgr = cv2.imread(image_path)
 
         img_mask_gray = bgst.apply(img_bgr)
@@ -44,7 +44,8 @@ def main():
         img_mask_gray[img_mask_gray != 0] = 255
 
         # save
-        cv2.imwrite(save_folder_path + f"frame{i}.bmp", img_mask_gray)
+        save_path = save_folder_path + f"frame{i_frame}.bmp"
+        cv2.imwrite(save_path, img_mask_gray)
 
         # viz
         if opt.show_viz:
