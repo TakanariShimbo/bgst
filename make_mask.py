@@ -43,11 +43,11 @@ def main():
         img_mask_gray = customized_opening(img=img_mask_gray, scale=2, iteration=10)
         img_mask_gray[img_mask_gray != 0] = 255
 
-        # viz
-        img_viz_bgr = img_bgr.copy()
-        img_viz_bgr[img_mask_gray == 0] = 0
-        cv2.imshow("Frame (Only Forground)", img_mask_gray)
-        cv2.waitKey(1)
+        # # viz
+        # img_viz_bgr = img_bgr.copy()
+        # img_viz_bgr[img_mask_gray == 0] = 0
+        # cv2.imshow("Masked Frame", img_viz_bgr)
+        # cv2.waitKey(1)
 
         # save
         cv2.imwrite(save_folder_path + f"frame{i}.bmp", img_mask_gray)
