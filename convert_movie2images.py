@@ -5,7 +5,7 @@ import cv2
 import tqdm
 
 
-def main():
+def convert_movie2images(opt):
     # read movie
     video_path = f"../datas/original_movies/{opt.filename}.mp4"
     cap = cv2.VideoCapture(video_path)
@@ -57,7 +57,7 @@ if __name__ == '__main__':
     print(opt)
 
     # run main
-    main()
+    convert_movie2images(opt)
 
     # ex)
     # python convert_movie2images.py --filename "test_1" --total_frame 1001 --down_fps_rate 4 --down_resolution_rate 3

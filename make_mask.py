@@ -16,7 +16,7 @@ def customized_opening(img, scale, iteration):
     return img
 
 
-def main():
+def make_mask(opt):
     # define bgst model
     # Ref: https://pystyle.info/opencv-background-substraction/
     bgst = cv2.createBackgroundSubtractorMOG2(
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     print(opt)
 
     # run main
-    main()
+    make_mask(opt)
 
     # ex)
     # python make_mask.py --filename "test_1"
